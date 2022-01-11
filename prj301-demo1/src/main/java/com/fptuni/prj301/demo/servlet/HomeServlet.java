@@ -15,7 +15,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DUNGHUYNH
  */
+
 public class HomeServlet extends HttpServlet {
+
+    @Override
+    public void init() throws ServletException {
+        super.init(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy(); //To change body of generated methods, choose Tools | Templates.
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,10 +39,11 @@ public class HomeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
+        response.setContentType("image/appliction;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+            out.println("4343");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet HomeServlet</title>");            
