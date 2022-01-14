@@ -4,7 +4,7 @@
  */
 package com.fptuni.prj301.demo.servlet;
 
-import com.fptuni.pri301.demo.utils.DBUtils;
+import com.fptuni.prj301.demo.utils.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
