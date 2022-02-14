@@ -3,6 +3,11 @@
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>com.fptuni.prj301.demo.servlet.HomeServlet</servlet-class>
+        <init-param>
+           <param-name>parName</param-name>
+           <param-value>parValue</param-value>
+        </init-param>
+
     </servlet>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>

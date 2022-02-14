@@ -4,11 +4,14 @@
  */
 package com.fptuni.prj301.demo.servlet;
 
-import com.fptuni.demo.model.UserSession;
+import com.fptuni.prj301.demo.model.UserSession;
+import com.fptuni.prj301.demo.utils.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.Date;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DUNGHUYNH
  */
-public class LoginServlet extends HttpServlet {
+public class StudentListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,46 +35,66 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        
+        
+
+        
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out; 
+        
+
+            out = response.getWriter();
             /* TODO output your page here. You may use following sample code. */
-            
-           //??????
-            
-            
-            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>PROJ301 Demo - Login result</title>");            
+            out.println("<title>Servlet StudentListServlet</title>");            
             out.println("</head>");
             out.println("<body>");
             
             
+            RequestDispatcher rd1 = request.getRequestDispatcher("menu.html");
+            rd1.include(request, response);
+            
+       
+            out.println("<h1>Student List </h1>");
+            UserSession user = (UserSession) request.getAttribute("usersession");
+            if (user != null){
+                out.println("Hello " + user.getUsername());
+                out.println("Date " + user.getLoginDate());
+            }
 
-           
-            if (request.getParameter("user").equals("dung")  && request.getParameter("password").equals("dung")){
-                out.print("Correct !");
-               
-                UserSession user = new UserSession();
-                user.setUsername(request.getParameter("user"));
-                user.setLoginDate(new Date());
                 
-                request.setAttribute("usersession", user);
-
-                
-                RequestDispatcher rd = request.getRequestDispatcher("StudentList");
-                rd.forward(request, response);
-                
-            }else{
-                out.print("Incorrect !");
+            out.println("<h1>Student List </h1>");
+            
+            
+            out.println("<table>");
+            out.println("<tr><th>ID</th><th>First Name</th><th>Last Name</th></tr>");
+            
+            String sql = "select id, firstname , lastname from student";
+            try {
+                /*Connection conn = DBUtils.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                   out.print("<tr><td>" + rs.getString("id") + "</td> " 
+                            + "<td>" + rs.getString("firstname") + "</td> " 
+                            + "<td>" + rs.getString("lastname") + "</td> </tr>"     );
+                }*/
+            }
+            catch (Exception ex) {
+                    ex.printStackTrace();
             }
             
-                        
+            out.println("</table>");
             out.println("</body>");
-            out.println("</html>");
+            out.println("</html>");                
+
+            out.flush();
+            response.flushBuffer();
+
         }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

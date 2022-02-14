@@ -19,12 +19,8 @@
         <servlet-class>com.fptuni.prj301.demo.servlet.LoginServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>StudentListServlet</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.servlet.StudentListServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>MenuServlet</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.servlet.MenuServlet</servlet-class>
+        <servlet-name>StudentController</servlet-name>
+        <servlet-class>com.fptuni.prj301.demo.controller.StudentController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
@@ -35,12 +31,8 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>StudentListServlet</servlet-name>
-        <url-pattern>/StudentList</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>MenuServlet</servlet-name>
-        <url-pattern>/MenuServlet</url-pattern>
+        <servlet-name>StudentController</servlet-name>
+        <url-pattern>/Student/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

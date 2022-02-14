@@ -4,7 +4,7 @@
  */
 package com.fptuni.prj301.demo.servlet;
 
-import com.fptuni.demo.model.UserSession;
+import com.fptuni.prj301.demo.model.UserSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;

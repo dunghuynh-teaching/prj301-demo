@@ -2,24 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptuni.prj301.demo.servlet;
+package com.fptuni.prj301.demo.controller;
 
-import com.fptuni.demo.model.UserSession;
+import com.fptuni.prj301.demo.model.UserSession;
+import com.fptuni.prj301.demo.utils.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import com.fptuni.prj301.demo.model.Student;
+import com.fptuni.prj301.demo.dbmanager.StudentManager;
+import java.util.List;
 /**
  *
  * @author DUNGHUYNH
  */
-public class LoginServlet extends HttpServlet {
+public class StudentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,46 +34,33 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            
-           //??????
-            
-            
-            
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>PROJ301 Demo - Login result</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            
-            
+        
+            String path = request.getPathInfo();
+            System.out.println(path);
+            if (path.equals("/list")){
+            // Request data from database
+                StudentManager manager = new StudentManager();
+                List<Student> list = manager.list();
 
-           
-            if (request.getParameter("user").equals("dung")  && request.getParameter("password").equals("dung")){
-                out.print("Correct !");
-               
-                UserSession user = new UserSession();
-                user.setUsername(request.getParameter("user"));
-                user.setLoginDate(new Date());
-                
-                request.setAttribute("usersession", user);
+                request.setAttribute("list", list);
 
-                
-                RequestDispatcher rd = request.getRequestDispatcher("StudentList");
+                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/list.jsp");
                 rd.forward(request, response);
+            }else if (path.equals("/edit")){
                 
-            }else{
-                out.print("Incorrect !");
+                //STUDENT DEVELOPS
+                Long id = new Long(request.getParameter("id"));
+                StudentManager manager = new StudentManager();
+                Student student = manager.load(id);
+
+                request.setAttribute("object", student);
+
+                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/edit.jsp");
+                rd.forward(request, response);
             }
-            
-                        
-            out.println("</body>");
-            out.println("</html>");
+
         }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

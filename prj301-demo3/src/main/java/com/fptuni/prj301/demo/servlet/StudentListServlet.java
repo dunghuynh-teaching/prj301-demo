@@ -11,6 +11,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +35,15 @@ public class StudentListServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        
+        
+
+        
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out; 
+        
+
+            out = response.getWriter();
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -42,6 +51,20 @@ public class StudentListServlet extends HttpServlet {
             out.println("<title>Servlet StudentListServlet</title>");            
             out.println("</head>");
             out.println("<body>");
+            
+            
+            RequestDispatcher rd1 = request.getRequestDispatcher("menu.html");
+            rd1.include(request, response);
+            
+       
+            out.println("<h1>Student List </h1>");
+            UserSession user = (UserSession) request.getAttribute("usersession");
+            if (user != null){
+                out.println("Hello " + user.getUsername());
+                out.println("Date " + user.getLoginDate());
+            }
+
+                
             out.println("<h1>Student List </h1>");
             
             
@@ -50,23 +73,28 @@ public class StudentListServlet extends HttpServlet {
             
             String sql = "select id, firstname , lastname from student";
             try {
-                Connection conn = DBUtils.getConnection();
+                /*Connection conn = DBUtils.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                    out.print("<tr><td>" + rs.getString("id") + "</td> " 
                             + "<td>" + rs.getString("firstname") + "</td> " 
                             + "<td>" + rs.getString("lastname") + "</td> </tr>"     );
-                }
-
-            } catch (Exception e) {
-                System.out.println(e);
+                }*/
             }
+            catch (Exception ex) {
+                    ex.printStackTrace();
+            }
+            
             out.println("</table>");
             out.println("</body>");
-            out.println("</html>");
+            out.println("</html>");                
+
+            out.flush();
+            response.flushBuffer();
+
         }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -4,12 +4,8 @@
  */
 package com.fptuni.prj301.demo.servlet;
 
-import com.fptuni.demo.model.UserSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DUNGHUYNH
  */
-public class LoginServlet extends HttpServlet {
+public class HomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,41 +31,17 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-           //??????
-            
-            
-            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>PROJ301 Demo - Login result</title>");            
+            out.println("<title>Servlet HomeServlet Dung</title>");            
             out.println("</head>");
             out.println("<body>");
-            
-            
-
-           
-            if (request.getParameter("user").equals("dung")  && request.getParameter("password").equals("dung")){
-                out.print("Correct !");
-               
-                UserSession user = new UserSession();
-                user.setUsername(request.getParameter("user"));
-                user.setLoginDate(new Date());
-                
-                request.setAttribute("usersession", user);
-
-                
-                RequestDispatcher rd = request.getRequestDispatcher("StudentList");
-                rd.forward(request, response);
-                
-            }else{
-                out.print("Incorrect !");
-            }
-            
-                        
+            out.println("<h1>Servlet HomeServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
+            
+            
         }
     }
 
