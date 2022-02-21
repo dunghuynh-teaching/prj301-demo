@@ -22,6 +22,11 @@
         <servlet-name>StudentController</servlet-name>
         <servlet-class>com.fptuni.prj301.demo.controller.StudentController</servlet-class>
     </servlet>
+    
+    <servlet>
+        <servlet-name>AccessController</servlet-name>
+        <servlet-class>com.fptuni.prj301.demo.controller.AccessController</servlet-class>
+    </servlet>    
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/dung</url-pattern>
@@ -33,6 +38,11 @@
     <servlet-mapping>
         <servlet-name>StudentController</servlet-name>
         <url-pattern>/Student/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>AccessController</servlet-name>
+        <url-pattern>/Access/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

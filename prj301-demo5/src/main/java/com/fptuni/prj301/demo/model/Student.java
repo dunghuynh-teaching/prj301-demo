@@ -7,7 +7,7 @@ package com.fptuni.prj301.demo.model;
 public class Student {
     
     private Long id = null;
-    private String firstName = null;
+    private String firstName = null; 
     private String lastName= null;
 
     public Student(Long id, String firstName,String lastName) {
@@ -17,14 +17,21 @@ public class Student {
     }
 
     
-    public String getFirstName() {
+    public Student() {
+        this.id = null;
+        this.firstName = null;
+        this.lastName = null;
+    }
+
+     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    
+   
     public String getLastName() {
         return lastName;
     }

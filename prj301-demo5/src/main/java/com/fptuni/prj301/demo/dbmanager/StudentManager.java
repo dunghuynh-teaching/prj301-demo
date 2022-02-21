@@ -25,11 +25,11 @@ public class StudentManager {
         
         ArrayList<Student> list;
         list = new ArrayList<Student>();
-         
         
-       list.add(new Student(new Long(1),"Hoang","Van"));
-       list.add(new Student(new Long(2),"Hoang","Oanh"));
-        
+        list.add(new Student (new Long(1),"Dung","Huynh"));
+        list.add(new Student (new Long(2),"Dung2","Huynh"));
+
+
         return list;
     }
     
@@ -51,7 +51,8 @@ public class StudentManager {
     Load student with id
     */
     public Student load(Long id){
-        return null;
+
+            return null;
     }
     
     /*
@@ -66,5 +67,19 @@ public class StudentManager {
     */ 
     public Long update(Student student){
         return null;
+    }
+    
+        /*
+    Insert student and return Id
+    */ 
+    public void delete(Student student){
+        return;
+    }
+    
+            /*
+    Insert student and return Id
+    */ 
+    public void delete(Long id){
+        return;
     }
 }
