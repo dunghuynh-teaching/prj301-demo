@@ -4,6 +4,7 @@
  */
 package com.fptuni.prj301.demo.controller;
 
+import com.fptuni.prj301.demo.dbmanager.AccessManager;
 import com.fptuni.prj301.demo.model.UserSession;
 import com.fptuni.prj301.demo.utils.DBUtils;
 import java.io.IOException;
@@ -18,11 +19,12 @@ import com.fptuni.prj301.demo.model.Student;
 import com.fptuni.prj301.demo.dbmanager.StudentManager;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author DUNGHUYNH
  */
-public class StudentController extends HttpServlet {
+public class AccessController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,40 +38,40 @@ public class StudentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-            //Check securiry
-            // Add for exercise 5
-            
-            HttpSession ss = request.getSession();
-            UserSession us =  (UserSession) ss.getAttribute("usersession");
-            
-            if (us == null){
-                 response.sendRedirect(request.getContextPath()+"/Access1/login");
-                 return;
-            }
-            ////////////
-           
-        
             String path = request.getPathInfo();
             System.out.println(path);
-            if (path.equals("/list")){
-            // Request data from database
-                StudentManager manager = new StudentManager();
-                List<Student> list = manager.list();
-
-                request.setAttribute("list", list);
-
-                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/list.jsp");
-                rd.forward(request, response);
-            }else if (path.equals("/edit")){
+            if (path.equals("/login")){
                 
-                //STUDENT DEVELOPS
-                Long id = new Long(request.getParameter("id"));
-                StudentManager manager = new StudentManager();
-                Student student = manager.load(id);
+                String username = request.getParameter("username");
+                String password = request.getParameter("password");
+                
+                if (username == null){
+                    RequestDispatcher rd = request.getRequestDispatcher("/view/login.jsp");
+                    rd.forward(request, response);                
+                }
+                else{
+                    AccessManager manager = new AccessManager();
+                    UserSession us = manager.login(username, password);
 
-                request.setAttribute("object", student);
+                    HttpSession ss = request.getSession(true);
+                    ss.setAttribute("usersession", us);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/edit.jsp");
+                    if (us != null){
+                        response.sendRedirect(request.getContextPath()+"/Student/list");
+                    }else{
+                        request.setAttribute("login-msg", "Wrong username or password");
+                        RequestDispatcher rd = request.getRequestDispatcher("/view/login.jsp");
+                        rd.forward(request, response);
+                    }
+                }
+                    
+                
+            }else if (path.equals("/logout")){
+                HttpSession ss = request.getSession();
+                ss.setAttribute("usersession", null);
+                
+                request.setAttribute("login-msg", "");
+                RequestDispatcher rd = request.getRequestDispatcher("/view/login.jsp");
                 rd.forward(request, response);
             }
 

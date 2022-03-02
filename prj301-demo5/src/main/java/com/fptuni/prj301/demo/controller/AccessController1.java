@@ -4,25 +4,24 @@
  */
 package com.fptuni.prj301.demo.controller;
 
+import com.fptuni.prj301.demo.dbmanager.AccessManager;
 import com.fptuni.prj301.demo.model.UserSession;
-import com.fptuni.prj301.demo.utils.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.fptuni.prj301.demo.model.Student;
-import com.fptuni.prj301.demo.dbmanager.StudentManager;
-import java.util.List;
 import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author DUNGHUYNH
  */
-public class StudentController extends HttpServlet {
+@WebServlet(name = "AccessController1", urlPatterns = {"/Access1"})
+public class AccessController1 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,45 +35,43 @@ public class StudentController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-            //Check securiry
-            // Add for exercise 5
+        String path = request.getPathInfo();
+        if (path.equals("/login")){
             
-            HttpSession ss = request.getSession();
-            UserSession us =  (UserSession) ss.getAttribute("usersession");
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
             
-            if (us == null){
-                 response.sendRedirect(request.getContextPath()+"/Access1/login");
-                 return;
-            }
-            ////////////
-           
-        
-            String path = request.getPathInfo();
-            System.out.println(path);
-            if (path.equals("/list")){
-            // Request data from database
-                StudentManager manager = new StudentManager();
-                List<Student> list = manager.list();
-
-                request.setAttribute("list", list);
-
-                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/list.jsp");
-                rd.forward(request, response);
-            }else if (path.equals("/edit")){
+            if (username == null){
+                    RequestDispatcher rd = request.getRequestDispatcher("/view/login.jsp");
+                    rd.forward(request, response);
+            }else{
                 
-                //STUDENT DEVELOPS
-                Long id = new Long(request.getParameter("id"));
-                StudentManager manager = new StudentManager();
-                Student student = manager.load(id);
+//                UserSession usersession = new UserSession();
+//                usersession.login(username, password);
+//                
+//                getAttribute("user")
 
-                request.setAttribute("object", student);
-
-                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/edit.jsp");
-                rd.forward(request, response);
+                   AccessManager manager = new AccessManager();
+                   UserSession usersession = manager.login(username, password);
+                   
+                   if (usersession != null){
+                       ///LOGIN SUCCESSFUL
+                       
+                       HttpSession ss = request.getSession(true);
+                       ss.setAttribute("usersession", usersession);
+                       
+                       response.sendRedirect(request.getContextPath()+"/Student/list");
+                   }else{
+                        request.setAttribute("error-msg", "Wrong username and password");
+                        RequestDispatcher rd = request.getRequestDispatcher("/view/login.jsp");
+                        rd.forward(request, response);
+                   }
+                   
+                
             }
-
-        }
-    
+        }else if (path.equals("/logout")){
+        } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

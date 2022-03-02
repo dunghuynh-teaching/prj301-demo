@@ -4,20 +4,11 @@
         <param-name>language</param-name>
         <param-value>Vietnamese</param-value>
     </context-param>
-    <servlet>
-        <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.servlet.HomeServlet</servlet-class>
-        <param-name>language</param-name>
-        <param-value>Vietnamese</param-value>
-        <context-param>
-            <param-name>language</param-name>
-            <param-value>Vietnamese</param-value>
-        </context-param>
-    </servlet>
-    <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.servlet.LoginServlet</servlet-class>
-    </servlet>
+    
+   <welcome-file-list>  
+    <welcome-file>view/login.jsp</welcome-file>  
+   </welcome-file-list> 
+    
     <servlet>
         <servlet-name>StudentController</servlet-name>
         <servlet-class>com.fptuni.prj301.demo.controller.StudentController</servlet-class>
@@ -28,18 +19,6 @@
         <servlet-class>com.fptuni.prj301.demo.controller.AccessController</servlet-class>
     </servlet>    
     
-     <servlet>
-        <servlet-name>AccessController1</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.controller.AccessController1</servlet-class>
-    </servlet>  
-    <servlet-mapping>
-        <servlet-name>HomeServlet</servlet-name>
-        <url-pattern>/dung</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
-        <url-pattern>/login</url-pattern>
-    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StudentController</servlet-name>
         <url-pattern>/Student/*</url-pattern>
@@ -50,10 +29,6 @@
         <url-pattern>/Access/*</url-pattern>
     </servlet-mapping>
     
-    <servlet-mapping>
-        <servlet-name>AccessController1</servlet-name>
-        <url-pattern>/Access1/*</url-pattern>
-    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

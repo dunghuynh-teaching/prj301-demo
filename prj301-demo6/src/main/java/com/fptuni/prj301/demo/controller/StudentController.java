@@ -16,8 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.fptuni.prj301.demo.model.Student;
 import com.fptuni.prj301.demo.dbmanager.StudentManager;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpSession;
+import jdk.nashorn.internal.objects.NativeString;
 /**
  *
  * @author DUNGHUYNH
@@ -43,14 +45,14 @@ public class StudentController extends HttpServlet {
             UserSession us =  (UserSession) ss.getAttribute("usersession");
             
             if (us == null){
-                 response.sendRedirect(request.getContextPath()+"/Access1/login");
+                 response.sendRedirect(request.getContextPath()+"/Access/login");
                  return;
             }
             ////////////
            
         
             String path = request.getPathInfo();
-            System.out.println(path);
+            log(path);
             if (path.equals("/list")){
             // Request data from database
                 StudentManager manager = new StudentManager();
@@ -71,6 +73,52 @@ public class StudentController extends HttpServlet {
 
                 RequestDispatcher rd = request.getRequestDispatcher("/view/Student/edit.jsp");
                 rd.forward(request, response);
+            }else if (path.equals("/detail")){
+                
+                //STUDENT DEVELOPS
+                Long id = new Long(request.getParameter("id"));
+                StudentManager manager = new StudentManager();
+                Student student = manager.load(id);
+
+                request.setAttribute("object", student);
+
+                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/detail.jsp");
+                rd.forward(request, response);
+            }else if (path.equals("/update")){
+                
+                //STUDENT DEVELOPS
+                Long id = new Long(request.getParameter("id"));
+                
+                StudentManager manager = new StudentManager();
+                Student student = manager.load(id);
+
+                
+                //UPDATE STUDENT
+                HashMap<String,String> errors = new HashMap<String,String>();
+                boolean hasError = false;
+                String firstName = request.getParameter("firstName");
+                if (firstName.trim().equals("")){
+                    errors.put("firstName", "Firstname is empty");
+                    hasError = true;
+                }                    
+                student.setFirstName(request.getParameter("firstName"));
+                
+                
+                student.setLastName(request.getParameter("lastName"));
+                
+                
+                if (hasError){
+                    request.setAttribute("object", student);
+                    request.setAttribute("errors", errors);
+
+                    RequestDispatcher rd = request.getRequestDispatcher("/view/Student/edit.jsp");
+                    rd.forward(request, response);
+                }else{
+                    log("Update student " + student.getId() + " " + student.getFirstName());
+                    manager.update(student);
+                    response.sendRedirect(request.getContextPath()+"/Student/list");
+                }
+                
             }
 
         }
