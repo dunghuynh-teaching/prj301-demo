@@ -1,6 +1,11 @@
 # Support issues in Netbeans, Tomcat
+## 2. Enable sa account in SQL Server
 
-## Can not connect Demo to SQL Server using JDBC
+When install SQL Server, you forget to enable sa account. Follow this link to enable sa account
+
+https://sudeeptaganguly.wordpress.com/2010/04/20/how-to-enable-sa-account-in-sql-server/
+
+## 1. Can not connect Demo to SQL Server using JDBC
 Keyword: SQL, JDBC
 
 ### Symtom:
