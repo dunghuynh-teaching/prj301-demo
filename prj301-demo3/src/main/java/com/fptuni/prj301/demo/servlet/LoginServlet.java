@@ -4,7 +4,7 @@
  */
 package com.fptuni.prj301.demo.servlet;
 
-import com.fptuni.demo.model.UserSession;
+import com.fptuni.prj301.demo.Users.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -47,21 +47,11 @@ public class LoginServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             
-            
-
            
             if (request.getParameter("user").equals("dung")  && request.getParameter("password").equals("dung")){
                 out.print("Correct !");
                
-                UserSession user = new UserSession();
-                user.setUsername(request.getParameter("user"));
-                user.setLoginDate(new Date());
                 
-                request.setAttribute("usersession", user);
-
-                
-                RequestDispatcher rd = request.getRequestDispatcher("StudentList");
-                rd.forward(request, response);
                 
             }else{
                 out.print("Incorrect !");

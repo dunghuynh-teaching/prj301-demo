@@ -4,13 +4,14 @@
  */
 package com.fptuni.prj301.demo.servlet;
 
-import com.fptuni.demo.model.UserSession;
+import com.fptuni.prj301.demo.Users.UserDTO;
 import com.fptuni.prj301.demo.utils.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author DUNGHUYNH
  */
-public class StudentListServlet extends HttpServlet {
+public class StudentServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -51,39 +52,27 @@ public class StudentListServlet extends HttpServlet {
             out.println("<title>Servlet StudentListServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            
-            
-            RequestDispatcher rd1 = request.getRequestDispatcher("menu.html");
-            rd1.include(request, response);
-            
+           
        
             out.println("<h1>Student List </h1>");
-            UserSession user = (UserSession) request.getAttribute("usersession");
-            if (user != null){
-                out.println("Hello " + user.getUsername());
-                out.println("Date " + user.getLoginDate());
-            }
-
-                
-            out.println("<h1>Student List </h1>");
-            
+    
             
             out.println("<table>");
             out.println("<tr><th>ID</th><th>First Name</th><th>Last Name</th></tr>");
             
             String sql = "select id, firstname , lastname from student";
             try {
-                /*Connection conn = DBUtils.getConnection();
+                Connection conn = DBUtils.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql);
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                    out.print("<tr><td>" + rs.getString("id") + "</td> " 
                             + "<td>" + rs.getString("firstname") + "</td> " 
                             + "<td>" + rs.getString("lastname") + "</td> </tr>"     );
-                }*/
+                }
             }
-            catch (Exception ex) {
-                    ex.printStackTrace();
+            catch (SQLException ex) {
+                System.out.println("Query Student error!" + ex.getMessage());
             }
             
             out.println("</table>");

@@ -20,7 +20,7 @@
     </servlet>
     <servlet>
         <servlet-name>StudentListServlet</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.servlet.StudentListServlet</servlet-class>
+        <servlet-class>com.fptuni.prj301.demo.servlet.StudentServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>MenuServlet</servlet-name>
