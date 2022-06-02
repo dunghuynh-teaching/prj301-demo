@@ -41,13 +41,7 @@ public class StudentController extends HttpServlet {
             //Check securiry
             // Add for exercise 5
             
-            HttpSession ss = request.getSession();
-            UserSession us =  (UserSession) ss.getAttribute("usersession");
-            
-            if (us == null){
-                 response.sendRedirect(request.getContextPath()+"/Access/login");
-                 return;
-            }
+
             ////////////
            
         

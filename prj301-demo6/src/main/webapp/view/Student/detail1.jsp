@@ -19,7 +19,14 @@
         
         <h1>Student Details </h1>
         
+        <c:set var="detail1" value="${requestScope.object}" />
+        <c:url var="studentEdit" value="${request.contextPath}/Student1/edit">
+              <c:param name="id" value="${detail1.id}" />
+        </c:url>
         
-        
+        <p>Id: ${detail1.id}</p>
+        <p>Firstname: ${detail1.firstName}</p>
+        <p>Lastname: ${detail1.lastName}</p>
+        <form action="${studentEdit}" method="POST"><input value="Edit" type=submit></form>
     </body>
 </html>

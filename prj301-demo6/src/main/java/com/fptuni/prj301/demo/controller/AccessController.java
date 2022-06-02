@@ -57,7 +57,7 @@ public class AccessController extends HttpServlet {
                     ss.setAttribute("usersession", us);
 
                     if (us != null){
-                        response.sendRedirect(request.getContextPath()+"/Student/list");
+                        response.sendRedirect(request.getContextPath()+"/Student1/list");
                     }else{
                         request.setAttribute("login-msg", "Wrong username or password");
                         RequestDispatcher rd = request.getRequestDispatcher("/view/login.jsp");

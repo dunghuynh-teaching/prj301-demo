@@ -16,6 +16,7 @@
         
         <%@include file="/view/layout/header.jsp" %>
         <%@taglib prefix="c" uri= "http://java.sun.com/jsp/jstl/core" %>
+        <%@taglib prefix="tag" tagdir= "/WEB-INF/tags/" %>
         
         
         <h1>Student List </h1>
@@ -41,10 +42,10 @@
                 <c:param name="id" value="${student.id}"></c:param>
             </c:url>
             
-            <tr style="background-color:${color}"><td><a href=${studentDetail}>${student.id}</a></td>
-                <td>${student.firstName}</td>
-                <td>${student.lastName}</td>
-                <td><a href=${studentEdit}>Edit</a></td></tr>
+            <tag:student color="${color}" 
+                         id="${student.id}"  
+                         firstName="${student.firstName}" 
+                         lastName="${student.lastName}"/>
             
             <c:set var="row" value="${row+1}"/>
 

@@ -38,18 +38,6 @@ public class StudentController1 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-            //Check securiry
-            // Add for exercise 5
-            
-            HttpSession ss = request.getSession();
-            UserSession us =  (UserSession) ss.getAttribute("usersession");
-            
-            if (us == null){
-                 response.sendRedirect(request.getContextPath()+"/Access/login");
-                 return;
-            }
-            ////////////
-           
         
             String path = request.getPathInfo();
             log(path);
@@ -73,6 +61,51 @@ public class StudentController1 extends HttpServlet {
 
                 RequestDispatcher rd = request.getRequestDispatcher("/view/Student/edit1.jsp");
                 rd.forward(request, response);
+            }else if (path.equals("/detail")){
+                
+                //STUDENT DEVELOPS
+                Long id = new Long(request.getParameter("id"));
+                StudentManager manager = new StudentManager();
+                Student student = manager.load(id);
+
+                request.setAttribute("object", student);
+
+                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/detail1.jsp");
+                rd.forward(request, response);
+            }
+            else if (path.equals("/update")){
+                
+                //STUDENT DEVELOPS
+                Long id = new Long(request.getParameter("id"));
+                StudentManager manager = new StudentManager();
+                Student student = manager.load(id);
+                
+                HashMap<String,String> errors = new HashMap<String,String>();
+                boolean hasError = false;
+                
+                
+                String firstName = request.getParameter("firstName");
+                
+                if (firstName != null && firstName.trim().equals("")){
+                    hasError = true;
+                    errors.put("firstName","Firstname is empty");
+                }
+                
+                student.setFirstName(firstName);
+                
+                String lastName = request.getParameter("lastName");
+                student.setLastName(lastName);
+
+                if (hasError){
+                    request.setAttribute("object", student);
+                    request.setAttribute("errors", errors);
+                    
+                    RequestDispatcher rd = request.getRequestDispatcher("/view/Student/edit1.jsp");
+                    rd.forward(request, response);
+                }else{
+                    manager.update(student);        
+                    response.sendRedirect(request.getContextPath()+"/Student1/list");
+                }
             }
         }
 
