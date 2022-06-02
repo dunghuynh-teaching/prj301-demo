@@ -8,3 +8,5 @@
 - [Exercise 06](doc/ex06.md)
 - [Exercise 07](doc/ex07.md)
 - [Exercise 08](doc/ex08.md)
+
+- [Issues and Solutions](doc/support-issues.md)
