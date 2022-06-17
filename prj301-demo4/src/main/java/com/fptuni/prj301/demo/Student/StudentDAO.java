@@ -34,10 +34,11 @@ public class StudentDAO {
             where += " (lastname  like  ? OR lastname like ? )";
             whereJoinWord = " and ";  
         }
-        if (city != null && !city.trim().isEmpty())
+        if (city != null && !city.trim().isEmpty()){
             where += whereJoinWord;
             where += " city  LIKE ? ";
             whereJoinWord = " and ";
+		}
         
         try {
             
@@ -71,8 +72,8 @@ public class StudentDAO {
         catch (SQLException ex) {
             System.out.println("Query Student error!" + ex.getMessage());
         }
-        return null;	// your code
-		//
+        return null;	
+		
     }
     
     /*
