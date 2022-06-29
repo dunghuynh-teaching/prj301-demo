@@ -6,7 +6,7 @@
     </context-param>
     <servlet>
         <servlet-name>HomeServlet</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.servlet.HomeServlet</servlet-class>
+        <servlet-class>com.fptuni.prj301.demo.Controller.HomeServlet</servlet-class>
         <param-name>language</param-name>
         <param-value>Vietnamese</param-value>
         <context-param>
@@ -15,48 +15,43 @@
         </context-param>
     </servlet>
     <servlet>
-        <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.servlet.LoginServlet</servlet-class>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>com.fptuni.prj301.demo.Controller.LoginController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StudentController</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.controller.StudentController</servlet-class>
+        <servlet-class>com.fptuni.prj301.demo.Controller.StudentController</servlet-class>
     </servlet>
-    
     <servlet>
-        <servlet-name>AccessController</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.controller.AccessController</servlet-class>
-    </servlet>    
-    
-     <servlet>
-        <servlet-name>AccessController1</servlet-name>
-        <servlet-class>com.fptuni.prj301.demo.controller.AccessController1</servlet-class>
-    </servlet>  
+        <servlet-name>MenuServlet</servlet-name>
+        <servlet-class>com.fptuni.prj301.demo.servlet.MenuServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/dung</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoginServlet</servlet-name>
+        <servlet-name>LoginController</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>StudentController</servlet-name>
-        <url-pattern>/Student/*</url-pattern>
+        <url-pattern>/student</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
-        <servlet-name>AccessController</servlet-name>
-        <url-pattern>/Access/*</url-pattern>
-    </servlet-mapping>
-    
-    <servlet-mapping>
-        <servlet-name>AccessController1</servlet-name>
-        <url-pattern>/Access1/*</url-pattern>
+        <servlet-name>MenuServlet</servlet-name>
+        <url-pattern>/MenuServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>login</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.htm</location>
+    </error-page>
 </web-app>

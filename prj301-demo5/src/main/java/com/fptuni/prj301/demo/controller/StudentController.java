@@ -2,22 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptuni.prj301.demo.controller;
+package com.fptuni.prj301.demo.Controller;
 
-import com.fptuni.prj301.demo.model.UserSession;
+import com.fptuni.prj301.demo.Student.StudentDAO;
+import com.fptuni.prj301.demo.Student.StudentDTO;
+import com.fptuni.prj301.demo.User.UserDTO;
 import com.fptuni.prj301.demo.utils.DBUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.fptuni.prj301.demo.model.Student;
-import com.fptuni.prj301.demo.dbmanager.StudentManager;
-import java.util.List;
 import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author DUNGHUYNH
@@ -35,45 +40,99 @@ public class StudentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            //Check securiry
-            // Add for exercise 5
-            
-            HttpSession ss = request.getSession();
-            UserSession us =  (UserSession) ss.getAttribute("usersession");
-            
-            if (us == null){
-                 response.sendRedirect(request.getContextPath()+"/Access1/login");
-                 return;
-            }
-            ////////////
+
+            String action = request.getParameter("action");
+            String keyword = request.getParameter("keyword");
+            String city = request.getParameter("city");
            
-        
-            String path = request.getPathInfo();
-            System.out.println(path);
-            if (path.equals("/list")){
-            // Request data from database
-                StudentManager manager = new StudentManager();
-                List<Student> list = manager.list();
-
-                request.setAttribute("list", list);
-
-                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/list.jsp");
-                rd.forward(request, response);
-            }else if (path.equals("/edit")){
+            // Check security
+            HttpSession session = request.getSession(false);
+            UserDTO currentUser = null;
+                    
+            if (session != null){       
+                currentUser = (UserDTO) session.getAttribute("usersession");
+            }
+            
+            log("Debug: " + currentUser);
+            if (currentUser == null){
+                log("Debug: Redirect to login page" + currentUser);            
+                response.sendRedirect(request.getContextPath() + "/login");
+                return;
+            }
+          
+            StudentDAO studentDAO = new StudentDAO();
+            
+            if (action == null || action.equals("list")){
                 
-                //STUDENT DEVELOPS
-                Long id = new Long(request.getParameter("id"));
-                StudentManager manager = new StudentManager();
-                Student student = manager.load(id);
+                List<StudentDTO> list = studentDAO.list(keyword, city);
+                
+                request.setAttribute("list", list);
+                RequestDispatcher rd = request.getRequestDispatcher("studentlist.jsp");
+                rd.forward(request, response);
+            }
+            
+            else if ( action.equals("details")){
+                
+                Long id = null;
+                try{
+                    id = Long.parseLong(request.getParameter("id"));      
+                }catch (NumberFormatException ex){
+                    
+                }
+                  
+                StudentDTO student = null;
+                if (id != null){
+                    student =  studentDAO.load(id);
+                }
 
                 request.setAttribute("object", student);
-
-                RequestDispatcher rd = request.getRequestDispatcher("/view/Student/edit.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("studentdetails.jsp");
                 rd.forward(request, response);
             }
+            
+            else if ( action.equals("edit")){
+                
+               
+            }
+            
+            else if ( action.equals("create")){
+                
+                
+            }
+            
+            
+            else if (action.equals("update")){
+                 
+            }
+            
+            else if (action.equals("insert")){
+                 
+                  
+                 
+            }
+            else if (action.equals("delete")){
+                
+                Long id = null;
+                try{
+                    id = Long.parseLong(request.getParameter("id"));      
+                }catch (NumberFormatException ex){
+                    
+                }
+                  
+                if (id != null){
+                    studentDAO.delete(id);
+                }
 
+                List<StudentDTO> list = studentDAO.list(keyword, city);
+                
+                request.setAttribute("list", list);
+                RequestDispatcher rd = request.getRequestDispatcher("studentlist.jsp");
+                rd.forward(request, response);
+            }
+        
         }
+
+        
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

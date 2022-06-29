@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.fptuni.prj301.demo.model;
+package com.fptuni.prj301.demo.User;
 
 import java.util.Date;
 
@@ -10,27 +10,23 @@ import java.util.Date;
  *
  * @author DUNGHUYNH
  */
-public class UserSession {
+public class UserDTO {
+
+
     
     private String username;
-    private String accessRight;
+    private String name;
+    private Date loginDate;
+    
 
     public Date getLoginDate() {
         return loginDate;
     }
 
-    public String getAccessRight() {
-        return accessRight;
-    }
-
-    public void setAccessRight(String accessRight) {
-        this.accessRight = accessRight;
-    }
-
     public void setLoginDate(Date loginDate) {
         this.loginDate = loginDate;
     }
-    private Date loginDate;
+    
 
     /**
      * Get the value of username
@@ -50,4 +46,11 @@ public class UserSession {
         this.username = username;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
