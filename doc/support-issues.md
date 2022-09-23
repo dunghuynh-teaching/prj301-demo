@@ -29,3 +29,8 @@ Check this link and update Port
 4. Restart the 'SQL Server ([instance-name])' windows service.
 
 ![](img/hinh2.png)
+
+** If you use many instances od MS SQL SEVER**
+Make sure the SQL Server Browser windows service is running
+
+Read this link if you use many instance https://stackoverflow.com/questions/12523865/jdbc-simple-mssql-connection-example-not-working
