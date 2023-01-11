@@ -10,3 +10,10 @@
 - [Exercise 08](doc/ex08.md)
 
 - [Issues and Solutions](doc/support-issues.md)
+
+## Instruction
+
+Clone demo project to your computer
+```
+git clone https://github.com/dunghuynh-teaching/prj301-demo.git .
+```
