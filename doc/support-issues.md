@@ -1,4 +1,24 @@
 # Support issues in Netbeans, Tomcat
+
+## 3. Can not run program "cmd"
+
+Symtom:
+Cannot run program "cmd" (in directory
+when build program Maven
+
+Solution:
+No need to downgrade the JDK, just add this in your `netbeans.conf`
+
+Find your `netbeans.conf` file. e.g.: `netbeansIstallDir/etc/netbeans.conf`
+
+Find the key netbeans_default_options and at the start of the string add the following: `-J-Djdk.lang.Process.allowAmbiguousCommands=true`
+
+It should look like this:
+```
+netbeans_default_options="-J-Djdk.lang.Process.allowAmbiguousCommands=true..."
+```
+https://stackoverflow.com/questions/58445540/netbeans-9-10-11-cannot-run-program-cmd
+
 ## 2. Enable sa account in SQL Server
 
 When install SQL Server, you forget to enable sa account. Follow this link to enable sa account
