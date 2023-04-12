@@ -2,11 +2,11 @@
 
 ## 3. Can not run program "cmd"
 
-Symtom:
-Cannot run program "cmd" (in directory
-when build program Maven
+**Symtom:**   
+Cannot run program "cmd" (in directory XXXX ) when build program Maven
 
-Solution:
+**Solution:**   
+
 No need to downgrade the JDK, just add this in your `netbeans.conf`
 
 Find your `netbeans.conf` file. e.g.: `netbeansIstallDir/etc/netbeans.conf`
