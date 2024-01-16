@@ -23,11 +23,34 @@
         <table>
         <tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Action</th></tr> 
         
-        <c:set var="row" value="0"/>
-              
+        
+        <c:set var="row" value="0"/>              
         
         <c:forEach var="student" items="${list}">
+            
+            <c:if test="${row%2==0}">
+                <c:set var="color" value="#ffffff"/>
+            </c:if>
+            <c:if test="${row%2==1}">
+                <c:set var="color" value="#eeeeee"/>
+            </c:if>
+            
+            
+            <tr style="background-color: ${color}">
+                <td>${student.id}</td>
+                <td>${student.firstname}</td>
+                <td>${student.lastname}</td>
+            </tr>
+            
+            <c:set var="row" value="${row+1}"/>
+        </c:forEach>   
         
+        
+        
+        
+        
+            
+        <c:forEach var="student" items="${list}">
             <c:if test="${row%2==0}">
                 <c:set var="color" value="#ffffff"/>
             </c:if>
