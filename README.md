@@ -6,9 +6,6 @@
 - [Exercise 04 - JSP ](doc/ex04.md)
 - [Exercise 05 - Sessions](doc/ex05.md)
 - [Exercise 06 - Java Beans](doc/ex06.md)
-- [Exercise 07 - Taglib](doc/ex07.md)
-- [Exercise 08 - Filter](doc/ex08.md)
-
 - [Issues and Solutions](doc/support-issues.md)
 
 ## Instruction
