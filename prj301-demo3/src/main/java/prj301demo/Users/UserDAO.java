@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fptuni.prj301.demo.Users;
+package prj301demo.Users;
 
 /**
  *
@@ -11,5 +11,10 @@ package com.fptuni.prj301.demo.Users;
  */
 public class UserDAO{
     
+    public UserDTO login(String username, String password){
+        
+        return null;
+        
+    }
     
 }
