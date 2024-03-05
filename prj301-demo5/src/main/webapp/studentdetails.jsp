@@ -1,10 +1,4 @@
-<%-- 
-    Document   : studentlist
-    Created on : 16/06/2022, 1:26:34 AM
-    Author     : DUNGHUYNH
---%>
-
-<%@page import="com.fptuni.prj301.demo.Student.StudentDTO"%>
+<%@page import="prj301demo.Student.StudentDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,11 +7,9 @@
         <title>Student Details</title>
     </head>
     <body>
-        
-         <h1>Student Details </h1>
+         <jsp:include page="/menu.jsp" flush="true" />
          
-         <jsp:include page="/menu.html" flush="true" />
-         
+         <h1>Student Details </h1>         
          <p> Login user: ${sessionScope.usersession.username}</p>
                  
          <table>

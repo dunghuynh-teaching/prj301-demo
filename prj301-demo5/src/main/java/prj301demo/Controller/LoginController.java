@@ -2,20 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package com.fptuni.prj301.demo.Controller;
+package prj301demo.Controller;
 
-import com.fptuni.prj301.demo.User.UserDAO;
-import com.fptuni.prj301.demo.User.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import prj301demo.Users.UserDAO;
+import prj301demo.Users.UserDTO;
 
 /**
  *
@@ -34,50 +31,22 @@ public class LoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-             /* TODO output your page here. You may use following sample code. */
-//             response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-            String action = request.getParameter("action");
-            String user = request.getParameter("user");
-            String password = request.getParameter("password");
-       
-//            RequestDispatcher rd1 = request.getRequestDispatcher("menu.html");
-//            rd1.include(request, response);
+        try (PrintWriter out = response.getWriter()) {           
             
-            if (action != null && action.equals("logout")){
-                HttpSession session = request.getSession(false);
+            String username = request.getParameter("user");
+            String password = request.getParameter("password");
+            UserDAO dao = new UserDAO();
+            UserDTO user = dao.login(username, password);
+                        
+            if (user != null){            
                 
-                if (session != null)
-                    session.invalidate();  
-                
-            }else{
-                
-                log("Debug user : " + user + " " + password);
-
-                if (user == null && password == null ){
-
-                    log("Debug user : Go to login " + user + " " + password);
-                    RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-                    rd.forward(request, response);
-                }else{
-
-                    log("Debug user : Go to here " + user + " " + password);
-                    UserDAO userDAO = new UserDAO();
-                    UserDTO userDTO = userDAO.login(user, password);            
-
-                    if (userDTO != null){                        
-                        HttpSession session = request.getSession(true);
-                        session.setAttribute("usersession", userDTO);                   
-                        response.sendRedirect("student");
-
-                    }else{      
-                        request.setAttribute("error", "Wrong username or password");            
-                        RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-                        rd.forward(request, response);
-                    }              
-                }
+                response.sendRedirect("./StudentList");                                
+            }else{                
+                request.setAttribute("error", "Username or password is incorrect");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request, response);
             }
-        //  }
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
